@@ -1,0 +1,14 @@
+{
+  "name": "kanso",
+  "owner": { "name": "erickjs11", "url": "https://github.com/erickjs11" },
+  "metadata": {
+    "description": "Kanso: efficient senior dev mode for Claude Code."
+  },
+  "plugins": [
+    {
+      "name": "kanso",
+      "source": "./",
+      "description": "Efficient senior dev mode: least new code, project style, short replies."
+    }
+  ]
+}
