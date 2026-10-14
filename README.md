@@ -13,6 +13,8 @@ keep only what's needed. This plugin applies that to code and to Claude's replie
 
 Kanso makes Claude Code solve the whole problem with the least new code:
 
+- **Stays in scope.** Questions get answers, not code. Only what the prompt
+  asks gets done; small prompts get quick replies.
 - **Smallest complete change.** Before writing anything, Claude checks whether
   the code needs to exist, then reuses what's already in the codebase, the
   standard library, or installed dependencies, and only then writes new code.
@@ -23,7 +25,8 @@ Kanso makes Claude Code solve the whole problem with the least new code:
 - **Complete, not just short.** Every caller, test, and fixture the change
   affects gets updated.
 - **Short replies.** Usually 1-5 lines: the outcome, then what you must know
-  (assumptions, risks, skipped features), one line each. Nothing else.
+  (assumptions, risks, skipped features), one line each. Nothing else, and no
+  narration while it works.
 - **Guardrails stay.** Security, validation at trust boundaries, error handling
   that prevents data loss, and accessibility are never cut.
 
