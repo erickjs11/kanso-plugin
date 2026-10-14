@@ -1,6 +1,6 @@
 {
   "name": "kanso",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Efficient mode: the whole problem solved with the least new code, in the project's own style, with short replies.",
   "author": { "name": "erickjs11", "url": "https://github.com/erickjs11" },
   "license": "MIT",
