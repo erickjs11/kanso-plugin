@@ -1,9 +1,9 @@
 # Kanso 簡素
 
-**Efficient senior dev mode for Claude Code.**
+**Efficient mode for Claude Code.**
 
-> **Work in progress.** Version 1.0.0 is an early release for testing. It
-> hasn't been benchmarked yet, and the rules may change as results come in.
+> **Work in progress.** Version 1.1.0 is an early release for testing. The
+> rules may change as benchmark results come in.
 > Feedback and issues are welcome.
 
 *Kanso* is a Japanese design principle meaning "simplicity": remove the clutter,
@@ -11,8 +11,7 @@ keep only what's needed. This plugin applies that to code and to Claude's replie
 
 ## What it does
 
-Kanso makes Claude Code work like a senior developer who solves the whole
-problem with the least new code:
+Kanso makes Claude Code solve the whole problem with the least new code:
 
 - **Smallest complete change.** Before writing anything, Claude checks whether
   the code needs to exist, then reuses what's already in the codebase, the
@@ -23,8 +22,8 @@ problem with the least new code:
   code nobody asked for.
 - **Complete, not just short.** Every caller, test, and fixture the change
   affects gets updated.
-- **Short replies.** What changed, then what you must know (assumptions,
-  risks, skipped features). Nothing else.
+- **Short replies.** Usually 1-5 lines: the outcome, then what you must know
+  (assumptions, risks, skipped features), one line each. Nothing else.
 - **Guardrails stay.** Security, validation at trust boundaries, error handling
   that prevents data loss, and accessibility are never cut.
 
@@ -56,6 +55,9 @@ claude --plugin-dir ./kanso-plugin
 /kanso status   # show whether it's on
 ```
 
+Claude Code prefixes plugin commands with the plugin name, so the full form is
+`/kanso:kanso on`. Typing `/kanso` and picking it from the menu also works.
+
 The setting lasts across sessions. It's stored as a `~/.kanso-off` file:
 Kanso is off while that file exists.
 
@@ -73,6 +75,7 @@ kanso-plugin/
 ├── scripts/
 │   └── kanso-switch.sh    # flips the on/off setting
 ├── kanso.md               # the rules themselves
+├── bench/bench.py         # token benchmark, with vs without Kanso
 ├── LICENSE
 └── README.md
 ```
@@ -85,6 +88,25 @@ stay active for the whole session. When Kanso is off, the hook loads nothing.
 
 All the behavior lives in `kanso.md`. Edit it to fit your team, but keep it
 short: it's loaded on every session, so every line costs tokens.
+
+## Benchmarking
+
+`bench/bench.py` runs one task with and without Kanso at the same time and
+compares the tokens each spent. Both runs work on temporary copies of your last
+commit, so your files are never touched.
+
+1. Clone this repo once: `git clone https://github.com/erickjs11/kanso-plugin`
+2. From inside any project's git repo, run:
+   ```
+   python3 /path/to/kanso-plugin/bench/bench.py "the task you'd normally ask"
+   ```
+3. To get the latest version later: `git -C /path/to/kanso-plugin pull`
+
+It prints total, input, and output tokens, list-price cost, turns, reply lines,
+and diff size, and saves the replies to `bench/results/`. Add `--runs 3` for
+steadier numbers. The benchmark uses the `kanso.md` in your clone, so you can
+edit it and rerun to compare. In the copies, Claude can read and edit files
+but not run commands.
 
 ## Uninstall
 
