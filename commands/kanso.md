@@ -8,4 +8,5 @@ allowed-tools: Bash(sh:*)
 
 If Kanso is now off, stop following the Kanso rules for the rest of this
 session. If it's now on and the rules aren't in your context, follow the rules
-printed above for the rest of this session. Reply in one line with the state.
+printed above for the rest of this session. Reply with only the first line
+printed above, word for word, and nothing else.
